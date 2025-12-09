@@ -12,13 +12,20 @@ Explainability using Qwen2.5-1.5B-Instruct
 
 The system not only predicts the fallacy but also generates human-readable explanations using a small instruction-tuned LLM.
 
-📌 Features
+📌 Features:
+
 ✔ Fallacy dataset preprocessing & cleaning
+
 ✔ Baseline classification using LinearSVC
+
 ✔ Transformer finetuning with weighted loss
+
 ✔ Balanced vs. unbalanced comparisons
+
 ✔ Qwen2.5-1.5B-Instruct explainer
+
 ✔ Fully modular codebase (src/)
+
 ✔ Ready for Streamlit deployment
 
 🗂 Dataset
@@ -36,16 +43,27 @@ label_str — normalized fallacy label
 label_id — numeric mapping using labels_climate.py
 
 Fallacy classes include:
+
 CHERRY_PICKING
+
 EVADING_THE_BURDEN_OF_PROOF
+
 FALSE_ANALOGY
+
 FALSE_AUTHORITY
+
 FALSE_CAUSE
+
 HASTY_GENERALISATION
+
 NO_FALLACY
+
 POST_HOC
+
 RED_HERRINGS
+
 STRAWMAN
+
 VAGUENESS
 
 A mapping script (labels_climate.py) ensures consistent ID ↔ label conversions.
@@ -77,7 +95,7 @@ from src.labels_climate import LABEL2ID, ID2LABEL
 Ensures no NaN text reaches TF-IDF or tokenizers.
 
 Saved in Processed Folder as :
-Saved processed datasets to:
+
 data/processed/
    climate_train.csv
    climate_dev.csv
@@ -96,6 +114,7 @@ Produces:
 data/combined_csv/climate_train_balanced.csv
 
 🔧 Models Trained
+
 ⭐ Baseline: TF-IDF + LinearSVM
 
 File:
@@ -141,28 +160,34 @@ Produces short, human-friendly fallacy explanations.
 Example usage:
 
 explainer = QwenExplainer()
+
 explanation = explainer.explain(text, predicted_label)
 
 📊 Results Summary
+
 Baseline (Unbalanced)
 
 Accuracy: low due to heavy class imbalance
+
 Model predicts mostly NO_FALLACY
 
 Baseline (Balanced)
 
 Accuracy: improved
+
 Better recall across fallacies
+
 Still limited by TF-IDF representation
 
 Transformer Finetuned (Balanced)
 
 Macro-F1 improved significantly
+
 Performance spread across classes
+
 Still challenging due to dataset complexity
 
 Full tables are in the  notebook & project docs.
-
 
 
 🚀 Installation
@@ -178,6 +203,7 @@ python -m venv .venv
 .venv\Scripts\activate  # Windows
 
 3️⃣ Install dependencies
+
 pip install -r requirements.txt
 
 ▶️ Run Training
