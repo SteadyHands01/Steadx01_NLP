@@ -1,0 +1,31 @@
+# Virtual environments
+.venv/
+env/
+venv/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Jupyter notebooks metadata
+.ipynb_checkpoints/
+
+# HuggingFace & caches
+.cache/
+hf_cache/
+
+# Output folders (model checkpoints, logs, artifacts)
+outputs/
+
+# Large model weight files (wherever they may appear)
+*.bin
+*.safetensors
+*.pt
+*.pth
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
