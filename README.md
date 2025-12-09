@@ -1,4 +1,4 @@
-🧠 Logical Fallacy Detection in Climate Change Misinformation
+**Logical Fallacy Detection in Climate Change Misinformation**
 
 This project builds a multiclass NLP classifier that detects 11 types of logical fallacies found in online climate-change misinformation. It combines:
 
@@ -12,7 +12,7 @@ Explainability using Qwen2.5-1.5B-Instruct
 
 The system not only predicts the fallacy but also generates human-readable explanations using a small instruction-tuned LLM.
 
-📌 Features:
+**Features:**
 
 ✔ Fallacy dataset preprocessing & cleaning
 
@@ -28,7 +28,7 @@ The system not only predicts the fallacy but also generates human-readable expla
 
 ✔ Ready for Streamlit deployment
 
-🗂 Dataset
+**Dataset**
 
 The dataset contains the following text components:
 
@@ -42,7 +42,7 @@ label_str — normalized fallacy label
 
 label_id — numeric mapping using labels_climate.py
 
-Fallacy classes include:
+**Fallacy classes include:**
 
 CHERRY_PICKING
 
@@ -68,9 +68,9 @@ VAGUENESS
 
 A mapping script (labels_climate.py) ensures consistent ID ↔ label conversions.
 
-🧹 Preprocessing Pipeline
+Preprocessing Pipeline
 
-1️⃣ Clean the raw text
+**1️. Clean the raw text**
 
 Includes:
 
@@ -84,13 +84,13 @@ Located in:
 
 src/data/clean_text.py
 
-2️⃣ Encode labels
+**2️. Encode labels**
 
 Using:
 
 from src.labels_climate import LABEL2ID, ID2LABEL
 
-3️⃣ Drop missing entries
+**3️. Drop missing entries**
 
 Ensures no NaN text reaches TF-IDF or tokenizers.
 
@@ -101,7 +101,7 @@ data/processed/
    climate_dev.csv
    climate_test.csv
   
-4️⃣ Dataset balancing
+**4️. Dataset balancing**
 
 Oversampling minority classes to handle heavy imbalance.
 
@@ -115,7 +115,7 @@ data/combined_csv/climate_train_balanced.csv
 
 🔧 Models Trained
 
-⭐ Baseline: TF-IDF + LinearSVM
+Baseline: TF-IDF + LinearSVM
 
 File:
 
@@ -123,14 +123,14 @@ src/models/baseline.py
 
 This establishes a classical ML benchmark.
 
-🤖 Transformer: DistilRoBERTa Fine-Tuning
+Transformer: DistilRoBERTa Fine-Tuning
 
 File:
 
 src/models/slm_finetune.py
 
 
-Includes:
+**Includes:**
 
 Stratified train/val split
 
@@ -148,7 +148,7 @@ Supports easy loading:
 
 model = AutoModelForSequenceClassification.from_pretrained("outputs/slm_climate_multiclass")
 
-💬 Explainability with Qwen2.5-1.5B-Instruct
+**Explainability** with Qwen2.5-1.5B-Instruct
 
 File:
 
@@ -163,7 +163,7 @@ explainer = QwenExplainer()
 
 explanation = explainer.explain(text, predicted_label)
 
-📊 Results Summary
+ **Results Summary**
 
 Baseline (Unbalanced)
 
@@ -190,25 +190,24 @@ Still challenging due to dataset complexity
 Full tables are in the  notebook & project docs.
 
 
-🚀 Installation
-
-1️⃣ Clone the repo
+**Installation**
+1️. Clone the repo
 
 git clone https://github.com/SteadyHands01/Steadx01_NLP.git
 
 cd Steadx01_NLP
 
-2️⃣ Create virtual environment
+2️. Create virtual environment
 python -m venv .venv
 .venv\Scripts\activate  # Windows
 
-3️⃣ Install dependencies
+3️. Install dependencies
 
 pip install -r requirements.txt
 
-▶️ Run Training
+ Run Training
 
-Baseline:
+**Baseline:**
 
 python src/models/baseline.py
 
@@ -216,8 +215,7 @@ Transformer:
 
 python src/models/slm_finetune.py
 
-💬 Generate Explanation (Qwen)
-
+**Generate Explanation (Qwen)**
 Example:
 
 from src.explainers.explainer_qwen import QwenExplainer
@@ -228,8 +226,7 @@ explain = explainer.explain("sample text here", "CHERRY_PICKING")
 
 print(explain)
 
-📦 Future Work
-
+**Future Work**
 Add Streamlit inference app
 
 Replace DistilRoBERTa with ModernBERT / DeBERTa-v3
@@ -238,7 +235,7 @@ Add knowledge distillation
 
 Build a real-time misinformation monitor dashboard
 
-🙌 Acknowledgements
+**Acknowledgements**
 
 HuggingFace Transformers
 
