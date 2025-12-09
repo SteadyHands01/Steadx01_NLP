@@ -166,8 +166,11 @@ Full tables are in the  notebook & project docs.
 
 
 🚀 Installation
+
 1️⃣ Clone the repo
+
 git clone https://github.com/SteadyHands01/Steadx01_NLP.git
+
 cd Steadx01_NLP
 
 2️⃣ Create virtual environment
@@ -192,8 +195,11 @@ python src/models/slm_finetune.py
 Example:
 
 from src.explainers.explainer_qwen import QwenExplainer
+
 explainer = QwenExplainer()
+
 explain = explainer.explain("sample text here", "CHERRY_PICKING")
+
 print(explain)
 
 📦 Future Work
