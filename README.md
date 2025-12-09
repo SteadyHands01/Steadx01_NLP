@@ -163,41 +163,7 @@ Still challenging due to dataset complexity
 
 Full tables are in the  notebook & project docs.
 
-📁 Repository Structure
-Steadx01_NLP/
-│
-├── src/
-│   ├── data/
-│   │   ├── clean_text.py
-│   │   └── __init__.py
-│   │
-│   ├── models/
-│   │   ├── baseline.py
-│   │   ├── slm_finetune.py
-│   │   └── __init__.py
-|   |
-|   |
-│   │├── explainer_qwen.py
-│   │└── __init__.py
-│   │
-│   ├── labels_climate.py
-│   └── __init__.py
-│
-├── data/
-│   ├── raw/
-│   ├── processed/
-│   └── combined_csv/
-│
-├── notebooks/
-│   ├── Fallacies_NLP.ipynb
-│   
-│
-├── outputs/
-│   └── slm_climate_multiclass/   (ignored by .gitignore)
-│
-├── README.md
-├── .gitignore
-└── requirements.txt
+
 
 🚀 Installation
 1️⃣ Clone the repo
@@ -248,7 +214,8 @@ Qwen team
 
 Scikit-learn
 
-Climate change fallacy dataset authors 
+Climate change fallacy dataset authors.
+
 Tariq60: https://github.com/Tariq60/fallacy-detection/tree/master/data
 
 Microsoft (Phi series inspiration)
