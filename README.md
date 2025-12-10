@@ -138,7 +138,7 @@ Improve classifier performance with:
 3. Prompt-based fine-tuning
 
 
-**Comtact**
+**Contact**
 
 Project Maintainer:
 
