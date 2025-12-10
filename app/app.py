@@ -38,10 +38,7 @@ st.set_page_config(
 def load_classifier():
     """Load fine-tuned DistilRoBERTa classifier and tokenizer."""
     tokenizer = AutoTokenizer.from_pretrained(MODEL_DIR)
-    model = AutoModelForSequenceClassification.from_pretrained(
-        MODEL_DIR,
-        torch_dtype=torch.float16 if torch.cuda.is_available() else torch.float32,
-    )
+    model = AutoModelForSequenceClassification.from_pretrained(MODEL_DIR)
     model.to(DEVICE)
     model.eval()
     return tokenizer, model
