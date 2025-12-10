@@ -20,7 +20,7 @@ from src.explainer_flan import FlanExplainer, FlanExplainerConfig
 
 # Configuration
 # Use PROJECT_ROOT so the path works regardless of where Streamlit is launched from
-MODEL_DIR = PROJECT_ROOT / "outputs" / "slm_climate_multiclass"
+MODEL_DIR = "SteadyHands/climate-fallacy-roberta"
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 
 
