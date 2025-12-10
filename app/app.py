@@ -20,7 +20,7 @@ from src.explainer_flan import FlanExplainer, FlanExplainerConfig
 
 # Configuration
 # Use PROJECT_ROOT so the path works regardless of where Streamlit is launched from
-MODEL_DIR = PROJECT_ROOT / "outputs" / "slm_climate_multiclass"
+MODEL_DIR = "SteadyHands/climate-fallacy-roberta"
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 
 
@@ -38,7 +38,10 @@ st.set_page_config(
 def load_classifier():
     """Load fine-tuned DistilRoBERTa classifier and tokenizer."""
     tokenizer = AutoTokenizer.from_pretrained(MODEL_DIR)
-    model = AutoModelForSequenceClassification.from_pretrained(MODEL_DIR)
+    model = AutoModelForSequenceClassification.from_pretrained(
+        MODEL_DIR,
+        torch_dtype=torch.float16 if torch.cuda.is_available() else torch.float32,
+    )
     model.to(DEVICE)
     model.eval()
     return tokenizer, model
