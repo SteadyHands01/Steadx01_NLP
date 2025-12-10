@@ -42,7 +42,8 @@ class QwenExplainer:
             self.tokenizer.pad_token = self.tokenizer.eos_token
 
     def build_prompt(self, text: str, label_name: str) -> str:
-        return f"""You are an expert in argumentation and logical fallacies.
+        return f"""
+You are an expert in argumentation and logical fallacies.
 
 Task:
 Given a social media post about climate change and a predicted logical fallacy label, 
