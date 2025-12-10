@@ -1,48 +1,30 @@
 **Logical Fallacy Detection in Climate Change Misinformation**
 
-This project builds a multiclass NLP classifier that detects 11 types of logical fallacies found in online climate-change misinformation. It combines:
+This project builds a multiclass NLP classifier that detects 11 types of logical fallacies found in online climate-change misinformation. 
 
-Classical ML (TF-IDF + Linear SVM)
 
-Transformer-based fine-tuning (DistilRoBERTa)
+**Overview: Climate Logical Fallacy Detector**
 
-Dataset balancing via random oversampling
+A machine learning system that classifies logical fallacies in climate-related statements and generates human-readable explanations. 
 
-Explainability using Qwen2.5-1.5B-Instruct
+This system was built using:
 
-The system not only predicts the fallacy but also generates human-readable explanations using a small instruction-tuned LLM.
+Classical ML (TF-IDF + Linear SVM) baseline model for benchmarking.
+
+Transformer-based fine-tuning (DistilRoBERTa) for 11 fallacy classification.
+
+FLAN-T5-small (lightweight LLM) for generating explanations (streamlit app).
+
+Optional: Qwen2.5-1.5B-Instruct for deeper offline explanations.
+
+A fully interactive Streamlit web application.
+
+The project is structured for reproducibility, modularity, and extensibility.
+
 
 **Features:**
 
-✔ Fallacy dataset preprocessing & cleaning
-
-✔ Baseline classification using LinearSVC
-
-✔ Transformer finetuning with weighted loss
-
-✔ Balanced vs. unbalanced comparisons
-
-✔ Qwen2.5-1.5B-Instruct explainer
-
-✔ Fully modular codebase (src/)
-
-✔ Ready for Streamlit deployment
-
-**Dataset**
-
-The dataset contains the following text components:
-
-fact_checked_segment — argument/snippet
-
-comment_by_fact_checker — reasoning
-
-article — file reference
-
-label_str — normalized fallacy label
-
-label_id — numeric mapping using labels_climate.py
-
-**Fallacy classes include:**
+Uses a fine-tuned DistilRoBERTa Transformer to categorize text into 11 fallacy classes:
 
 CHERRY_PICKING
 
@@ -66,187 +48,104 @@ STRAWMAN
 
 VAGUENESS
 
-A mapping script (labels_climate.py) ensures consistent ID ↔ label conversions.
 
-Preprocessing Pipeline
+**Human-Readable  Explanation**
 
-**1️. Clean the raw text**
+After classification, the FLAN-T5-small model generates natural language explanations describing why the text may contain the detected fallacy.
 
-Includes:
 
-lowercasing
+**Streamlit App**
 
-removing special chars
+A clean UI for:
 
-whitespace normalization
+Entering input text
 
-Located in:
+Running classifier
 
-src/data/clean_text.py
+Viewing probabilities
 
-**2️. Encode labels**
+Generating explanations
 
-Using:
+Switching models (future feature)
 
-from src.labels_climate import LABEL2ID, ID2LABEL
 
-**3️. Drop missing entries**
+**Models Used**
 
-Ensures no NaN text reaches TF-IDF or tokenizers.
+1. TF-IDF + Linear SVM Baseline
 
-Saved in Processed Folder as :
+Provides a traditional ML comparison benchmark.
 
-data/processed/
-   climate_train.csv
-   climate_dev.csv
-   climate_test.csv
-  
-**4️. Dataset balancing**
+2. DistilRoBERTa Fine-Tuned Classifier
 
-Oversampling minority classes to handle heavy imbalance.
+Fine-tuned on climate fallacy dataset (train/dev/test splits)
 
-Stored in:
+Includes class-balancing through oversampling
 
-Notebooks/Fallacies_NLP.ipynb
+Supports evaluation with weighted loss options
 
-Produces:
+3. FLAN-T5-small Explainer
 
-data/combined_csv/climate_train_balanced.csv
+Lightweight and fast
 
-🔧 Models Trained
+Generates 2–3 sentence explanations
 
-Baseline: TF-IDF + LinearSVM
+Fully integrated into Streamlit UI
 
-File:
+4. Qwen2.5-1.5B-Instruct (Optional for local offline use)
 
-src/models/baseline.py
+Very strong reasoning ability
 
-This establishes a classical ML benchmark.
+Can generate long, deep explanations
 
-Transformer: DistilRoBERTa Fine-Tuning
+Disabled in Streamlit due to memory constraints
 
-File:
-
-src/models/slm_finetune.py
-
-
-**Includes:**
-
-Stratified train/val split
-
-HuggingFace datasets
-
-Weighted loss for class imbalance
-
-Custom WeightedTrainer
-
-Tokenization with truncation & padding
-
-Saving full model + tokenizer
-
-Supports easy loading:
-
-model = AutoModelForSequenceClassification.from_pretrained("outputs/slm_climate_multiclass")
-
-**Explainability** with Qwen2.5-1.5B-Instruct
-
-File:
-
-src/explainers/explainer_qwen.py
-
-
-Produces short, human-friendly fallacy explanations.
-
-Example usage:
-
-explainer = QwenExplainer()
-
-explanation = explainer.explain(text, predicted_label)
-
- **Results Summary**
-
-Baseline (Unbalanced)
-
-Accuracy: low due to heavy class imbalance
-
-Model predicts mostly NO_FALLACY
-
-Baseline (Balanced)
-
-Accuracy: improved
-
-Better recall across fallacies
-
-Still limited by TF-IDF representation
-
-Transformer Finetuned (Balanced)
-
-Macro-F1 improved significantly
-
-Performance spread across classes
-
-Still challenging due to dataset complexity
-
-Full tables are in the  notebook & project docs.
-
-
-**Installation**
-1️. Clone the repo
-
-git clone https://github.com/SteadyHands01/Steadx01_NLP.git
-
-cd Steadx01_NLP
-
-2️. Create virtual environment
-python -m venv .venv
-.venv\Scripts\activate  # Windows
-
-3️. Install dependencies
-
-pip install -r requirements.txt
-
- Run Training
-
-**Baseline:**
-
-python src/models/baseline.py
-
-Transformer:
-
-python src/models/slm_finetune.py
-
-**Generate Explanation (Qwen)**
-Example:
-
-from src.explainers.explainer_qwen import QwenExplainer
-
-explainer = QwenExplainer()
-
-explain = explainer.explain("sample text here", "CHERRY_PICKING")
-
-print(explain)
-
-**Future Work**
-Add Streamlit inference app
-
-Replace DistilRoBERTa with ModernBERT / DeBERTa-v3
-
-Add knowledge distillation
-
-Build a real-time misinformation monitor dashboard
 
 **Acknowledgements**
 
-HuggingFace Transformers
+Special thanks to:
 
-Qwen team
+Tariq60 for the open-source fallacy-detection dataset
 
-Scikit-learn
+https://github.com/Tariq60/fallacy-detection
 
-Climate change fallacy dataset authors.
+HuggingFace Transformers team
 
-Tariq60: https://github.com/Tariq60/fallacy-detection/tree/master/data
+Qwen LLM developers (Alibaba Cloud & Qwen Team)
 
-Microsoft (Phi series inspiration)
+Google FLAN-T5 team
+
+Microsoft for the PHI models (tested offline)
+
+This project is built on top of outstanding open-source efforts.
+
+All credits to the respective authors.
+
+
+**Future Improvement**
+
+Streamlit UI upgrade (tabs, themes, fallacy examples)
+
+Add option to choose explainer model (Flan / Qwen / Phi)
+
+Deploy to HuggingFace Space
+
+Improve classifier performance with:
+
+1. Better data augmentation
+
+2. Contrastive learning
+
+3. Prompt-based fine-tuning
+
+
+**Comtact**
+
+Project Maintainer:
+
+Faithful Kyeremeh (SteadyHands01)
+
+GitHub: https://github.com/SteadyHands01
+
+Email:faithfulkyeremeh@gmail.com
 
 
