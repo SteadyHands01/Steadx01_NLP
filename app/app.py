@@ -18,8 +18,7 @@ from src.labels_climate import ID2LABEL, LABEL2ID
 from src.explainer_flan import FlanExplainer, FlanExplainerConfig
 
 
-# Configuration
-# Use PROJECT_ROOT so the path works regardless of where Streamlit is launched from
+# Configuration --> Model will be called from hugging face repo (SteadyHands)
 MODEL_DIR = "SteadyHands/climate-fallacy-roberta"
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 
@@ -27,7 +26,7 @@ DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
 # Configure Streamlit Page 
 st.set_page_config(
      page_title= "Climate Fallacy Detector",
-     page_icon="🤡",
+     page_icon="🤡", #found the icon fancy
      layout="wide",
 )
 
